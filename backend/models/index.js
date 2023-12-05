@@ -13,5 +13,6 @@ db.on('connected', function () {
 // Export models and seed data to `server.js`
 // Export models and seed data to `server.js`
 module.exports = {
+    Tweet: require('./tweet.js'),
     User: require('./user.js')
 }
