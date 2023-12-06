@@ -51,4 +51,33 @@ router.post('/', authMiddleware, (req, res) => {
 })
 
 
+router.get('/:id', authMiddleware, async (req, res) => {
+   db.Tweet.find({ tweetId: req.params.id})
+    .then(tweet => res.json(tweet))
+})
+
+router.put('/:id', authMiddleware, async (req, res) => {
+    const userTweet = await db.Tweet.findById(req.params.id)
+    if(userTweet.userId.toString() === req.user.id){
+        const newTweet = await db.Tweet.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            {new: true}
+        )
+        res.json(newTweet)
+    } else {
+        res.status(401).json({ message: 'Invalid user or token' });
+    }
+})
+
+router.delete('/:id', authMiddleware, async (req, res) => {
+    // Check if the user who sent the delete request is the same user who created the comment
+    const userTweet = await db.Tweet.findById(req.params.id)
+    if (userTweet.userId.toString() === req.user.id) {
+        const deletedTweet = await db.Tweet.findByIdAndDelete(req.params.id)
+        res.send('You deleted tweet ' + deletedTweet._id)
+    } else {
+        res.status(401).json({ message: 'Invalid user or token' });
+    }
+})
 module.exports = router
