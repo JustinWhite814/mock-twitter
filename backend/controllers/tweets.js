@@ -69,7 +69,26 @@ router.put('/:id', authMiddleware, async (req, res) => {
         res.status(401).json({ message: 'Invalid user or token' });
     }
 })
+router.post('/:id/like', authMiddleware, async (req, res) => {
+    try {
+        const tweetId = req.params.tweetId;
+        const userTweet = await db.Tweet.findById(tweetId)
+        const userId = req.user._id; // Assuming user ID is available in the request after authentication
+        if(userTweet.userId.toString() === req.user.id){
+        // Update the tweet document in the database to include the user's ID in the likes array
+        const updatedTweet = await db.Tweet.findByIdAndUpdate(tweetId, { $addToSet: { likes: userId } });
 
+        res.json(updatedTweet);
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// Other tweet-related routes go here...
+
+module.exports = router;
 router.delete('/:id', authMiddleware, async (req, res) => {
     // Check if the user who sent the delete request is the same user who created the comment
     const userTweet = await db.Tweet.findById(req.params.id)
