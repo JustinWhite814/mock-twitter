@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
-
+import HomePage from '../HomePage';
+import AuthFormPage from '../AuthFormPage';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 function App() {
   const [tweets, setTweets] = useState([])
@@ -28,7 +30,15 @@ function App() {
   }, [])
   return (
     <>
-     <h1>Tweet Here</h1>
+    <Routes >
+    <Route path="/" element={
+                    <HomePage
+                       
+                    />}
+                />
+    <Route path="/auth/:formType" element={<AuthFormPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
+    </Routes>
+     {/* <HomePage/> */}
     </>
   )
 }
