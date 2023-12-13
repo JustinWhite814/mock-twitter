@@ -1,10 +1,11 @@
 import React from 'react'
-import AuthFormPage from '../AuthFormPage'
+import { NewsFeed } from '../NewsFeed'
 export default function HomePage() {
   return (
     <>
-    Homepage
-        {/* <AuthFormPage /> */}
+    <h1>Welcome to Tweeeter</h1>
+    <NewsFeed />
+        
     </>
     
   )

@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import HomePage from '../HomePage';
 import AuthFormPage from '../AuthFormPage';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import Navbar from '../Navbar';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  const [tweets, setTweets] = useState([])
-  const [isLoggedIn, setIsLoggedIn] = useState([])
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   
   const handleLogout = () => {
     // Clear the user token from local storage
@@ -18,18 +20,10 @@ function App() {
     navigate('/auth/login');
   };
 
-  async function getTweets(url){
-    const res = await fetch(url)
-    const data = await res.json()
-    console.log(data)
-    setTweets([...tweets, ...data])
-  }
-
-  useEffect(() => {
-    getTweets('/api/tweets')
-  }, [])
   return (
     <>
+    <Navbar isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
+
     <Routes >
     <Route path="/" element={
                     <HomePage
@@ -38,7 +32,7 @@ function App() {
                 />
     <Route path="/auth/:formType" element={<AuthFormPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
     </Routes>
-     {/* <HomePage/> */}
+   
     </>
   )
 }
