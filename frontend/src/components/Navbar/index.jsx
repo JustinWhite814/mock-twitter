@@ -20,24 +20,23 @@ export default function Navbar({isLoggedIn, handleLogout}) {
       </Navbar> */}
     <nav>
     <Link to='/'><h3>Home</h3></Link>
-    <ul>
         {isLoggedIn ? (
             <Button variant='primary' onClick={handleLogout} >
                 Log Out
             </Button>
         ) : (
             <>
-            <li>
                 <Link to='/auth/signup'>
                     <h4>Sign Up</h4>
                 </Link>
-            </li>
+            
+            
                 <Link to='/auth/login'>
                     <h4>Log In</h4>
                 </Link>
+            
             </>
         )}
-    </ul> 
     </nav>   
     </>
   )

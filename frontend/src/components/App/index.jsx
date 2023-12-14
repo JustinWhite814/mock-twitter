@@ -8,7 +8,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  
+  const [tweets, setTweets] = useState([])
+  async function getTweets(url){
+    const res = await fetch(url)
+    const data = await res.json()
+    console.log(data)
+    setTweets((tweets) => [...tweets, ...data]);
+  }
+
+  useEffect(() => {
+    getTweets('/api/tweets')
+  }, [])
   const handleLogout = () => {
     // Clear the user token from local storage
     localStorage.removeItem('userToken');
@@ -23,16 +33,14 @@ function App() {
   return (
     <>
     <Navbar isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
-
     <Routes >
     <Route path="/" element={
                     <HomePage
-                       
+                       tweets={tweets} getTweets={getTweets}
                     />}
                 />
     <Route path="/auth/:formType" element={<AuthFormPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
     </Routes>
-   
     </>
   )
 }

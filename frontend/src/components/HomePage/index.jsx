@@ -1,10 +1,11 @@
-import React from 'react'
+import './styles.css'
 import { NewsFeed } from '../NewsFeed'
-export default function HomePage() {
+export default function HomePage({tweets, getTweets}) {
+  
   return (
     <>
     <h1>Welcome to Tweeeter</h1>
-    <NewsFeed />
+    <NewsFeed tweets={tweets} getTweets={getTweets}/>
         
     </>
     

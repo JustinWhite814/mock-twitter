@@ -1,0 +1,26 @@
+/* .newsFeed{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid black;
+    background-color: white;
+    /* margin: 0 auto; */
+    /* width: 30%; */
+/* } */
+
+figure {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+figcaption{
+    
+        background-color: aqua;
+        width: 30%;
+    
+}
